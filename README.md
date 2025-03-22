@@ -14,9 +14,9 @@ Integrantes del proyecto
 
 ******************************************************************************************************
 RECURSOS A UTILIZAR
--Visual Studio.
--Android Studio con emulador de celular.
--Aplicación *Expo Go* para celular si en dado caso no soporta Android Studio en su maquina.
+- Visual Studio
+- Android Studio con emulador de celular
+- Aplicación *Expo Go* para celular si en dado caso no soporta Android Studio en su maquina
 
 ******************************************************************************************************
 Pasos para la instalación de la aplicación
