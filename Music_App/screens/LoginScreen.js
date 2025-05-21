@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
+  // ✅ Lista de usuarios válidos
+  const users = [
+    {
+      email: 'caleb.penate@gmail.com',
+      password: 'calebpenate2003',
+      name: 'Caleb Peñate'
+    },
+    {
+      email: 'camila.castillo@gmail.com',
+      password: 'camila2003',
+      name: 'Camila Castillo'
+    }
+  ];
 
-  const validUsername = 'caleb.penate@gmail.com';  
-  const validPassword = 'calebpenate2003';       
-
-  
   const handleLogin = () => {
-    if (username === validUsername && password === validPassword) {
-      navigation.navigate('Inicio');
+    
+    const matchedUser = users.find(
+      (user) => user.email === username && user.password === password
+    );
+
+    if (matchedUser) {
+      navigation.navigate('Inicio', {
+        name: matchedUser.name,
+        email: matchedUser.email
+      });
     } else {
-      
       setModalVisible(true);
     }
   };
@@ -23,8 +39,6 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>¡Bienvenido!</Text>
-
-      {}
       <TextInput
         placeholder="Usuario"
         style={styles.input}
@@ -40,18 +54,12 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
       />
-
-      {/* Botón de Iniciar sesión */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Iniciar sesión</Text>
       </TouchableOpacity>
-
-      {/* Olvidaste tu contraseña */}
       <TouchableOpacity onPress={() => navigation.navigate('PasswordRecovery')}>
         <Text style={styles.forgotPassword}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
-
-      {/* Registro de nuevo usuario */}
       <TouchableOpacity style={styles.signUpContainer} onPress={() => navigation.navigate('Register')}>
         <Text style={styles.signUpText}>¿No tienes cuenta? Regístrate</Text>
       </TouchableOpacity>
@@ -59,7 +67,7 @@ const LoginScreen = ({ navigation }) => {
       {/* Modal de error */}
       <Modal
         animationType="fade"
-        transparent={true}
+        transparent
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
@@ -77,6 +85,7 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
+// Estilos sin cambios
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -100,6 +109,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: '#4a4a4a',
     fontSize: 16,
+    color: '#fff',
   },
   button: {
     width: '100%',
@@ -113,13 +123,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
-    textDecorationColor: 'none',
   },
   forgotPassword: {
     marginTop: 15,
     color: '#d6d6d6',
     fontSize: 14,
-    textDecorationLine: 'none',
   },
   signUpContainer: {
     marginTop: 20,
@@ -129,13 +137,11 @@ const styles = StyleSheet.create({
     color: '#d6d6d6',
     fontSize: 14,
   },
-
-  // Estilos para el modal de alerta
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo semi-transparente
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
     width: 300,
@@ -170,3 +176,6 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
+
+  
