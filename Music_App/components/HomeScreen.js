@@ -6,7 +6,8 @@ import * as Location from 'expo-location';
 const SPOTIFY_CLIENT_ID = '1417fc3988b0455e8bac7476bacdcd1b';
 const SPOTIFY_CLIENT_SECRET = 'b5fdcedefbfa4801b0031a5ad8d8f525';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route }) => {
+  const { name, email } = route.params || {}; // Recibir datos del usuario desde LoginScreen
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState(null);
@@ -25,6 +26,7 @@ const HomeScreen = ({ navigation }) => {
     })();
   }, []);
 
+  // Obtener canciones desde Spotify
   useEffect(() => {
     const fetchSpotifyMusic = async () => {
       try {
@@ -68,29 +70,26 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       {/* Icono de perfil flotante */}
-      <TouchableOpacity style={styles.profileIcon} onPress={() => navigation.navigate('UserProfile')}>
+      <TouchableOpacity
+        style={styles.profileIcon}
+        onPress={() => navigation.navigate('UserProfile', { name, email })} // Pasar datos al perfil
+      >
         <Ionicons name="person-circle-outline" size={40} color="white" />
       </TouchableOpacity>
 
+      {/* Botones */}
       <TouchableOpacity
-          style={{ backgroundColor: '#1DB954', padding: 10, borderRadius: 20, alignSelf: 'center', marginBottom: 10 }}
-          onPress={() => navigation.navigate('Audio')}
-        >
-          <Text style={{ color: '#fff', fontWeight: 'bold' }}>Ir al reproductor de audio</Text>
+        style={styles.button}
+        onPress={() => navigation.navigate('Audio')}
+      >
+        <Text style={styles.buttonText}>Ir al reproductor de audio</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-          style={{
-            backgroundColor: '#1DB954',
-            padding: 10,
-            borderRadius: 20,
-            alignSelf: 'center',
-            marginBottom: 10,
-            marginTop: 10,
-          }}
-          onPress={() => navigation.navigate('Favoritos')}
-        >
-          <Text style={{ color: '#fff', fontWeight: 'bold' }}>Ver favoritos</Text>
+        style={styles.button}
+        onPress={() => navigation.navigate('Favoritos')}
+      >
+        <Text style={styles.buttonText}>Ver favoritos</Text>
       </TouchableOpacity>
 
       {/* Lista de canciones */}
@@ -113,8 +112,6 @@ const HomeScreen = ({ navigation }) => {
         </ScrollView>
       )}
     </SafeAreaView>
-
-    
   );
 };
 
@@ -146,6 +143,18 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     elevation: 5,
     zIndex: 10,
+  },
+  button: {
+    backgroundColor: '#1DB954',
+    padding: 10,
+    borderRadius: 20,
+    alignSelf: 'center',
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
   songList: {
     flexDirection: 'row',
@@ -182,4 +191,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
 export default HomeScreen;
