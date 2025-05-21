@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 const UserProfileScreen = ({ navigation }) => {
   const route = useRoute();
@@ -37,17 +38,13 @@ const styles = StyleSheet.create({
     color: 'white', 
     marginBottom: 30,
   },
-  profileImage: {
+ profileImage: {
     width: 150,
     height: 150,
     borderRadius: 75,
     marginBottom: 20,
     borderWidth: 4,
     borderColor: '#1DB954',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 5, // Sombra para darle un efecto elevado
   },
   input: {
     width: '100%',
@@ -61,14 +58,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   logoutButton: {
-    backgroundColor: '#FF3B30', // Rojo para el botón de cerrar sesión
+    backgroundColor: '#FF3B30',
     paddingVertical: 12,
     paddingHorizontal: 50,
     borderRadius: 25,
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 3,
   },
   logoutText: {
     color: '#fff',
