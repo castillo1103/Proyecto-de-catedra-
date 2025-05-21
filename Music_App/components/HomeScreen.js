@@ -79,6 +79,20 @@ const HomeScreen = ({ navigation }) => {
           <Text style={{ color: '#fff', fontWeight: 'bold' }}>Ir al reproductor de audio</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+          style={{
+            backgroundColor: '#1DB954',
+            padding: 10,
+            borderRadius: 20,
+            alignSelf: 'center',
+            marginBottom: 10,
+            marginTop: 10,
+          }}
+          onPress={() => navigation.navigate('Favoritos')}
+        >
+          <Text style={{ color: '#fff', fontWeight: 'bold' }}>Ver favoritos</Text>
+      </TouchableOpacity>
+
       {/* Lista de canciones */}
       {loading ? (
         <Text style={styles.loadingText}>Cargando canciones...</Text>
