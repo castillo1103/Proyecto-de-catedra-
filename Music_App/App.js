@@ -7,7 +7,8 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import PasswordRecoveryScreen from './screens/PasswordRecoveryScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
-import AudioScreen from './components/AudioScreen';
+import AudioScreen from './screens/AudioScreen';
+import FavoritesScreen from './screens/FavoritesScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const App = () => {
         <Stack.Screen name="Detalles" component={SongDetailScreen} options={{ title: 'Detalles de la canción' }} />
         <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Perfil de usuario' }} />
         <Stack.Screen name="Audio" component={AudioScreen} options={{ title: 'Audio' }} />
+        <Stack.Screen name="Favoritos" component={FavoritesScreen} options={{ title: 'Favoritos' }} />
         
       </Stack.Navigator>
     </NavigationContainer>
