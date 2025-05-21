@@ -2,22 +2,20 @@ import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const UserProfileScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { name, email } = route.params || { name: '', email: '' };
+
   return (
     <View style={styles.container}>
-      {}
       <Text style={styles.title}>Perfil de Usuario</Text>
-
-      {}
       <Image source={{ uri: 'https://via.placeholder.com/150' }} style={styles.profileImage} />
 
-      {}
-      <TextInput placeholder="Nombre" value="Juana Perez" style={styles.input} />
-      <TextInput placeholder="Correo" value="juanaperez@gmail.com" style={styles.input} />
-      <TextInput placeholder="Contraseña" value="************" secureTextEntry style={styles.input} />
-      <TextInput placeholder="Teléfono" value="55555555" style={styles.input} />
-      <TextInput placeholder="Dirección" value="Universidad Don Bosco" style={styles.input} />
+      <TextInput placeholder="Nombre" value={name} style={styles.input} editable={false} />
+      <TextInput placeholder="Correo" value={email} style={styles.input} editable={false} />
+      <TextInput placeholder="Contraseña" value="************" secureTextEntry style={styles.input} editable={false} />
+      <TextInput placeholder="Teléfono" value="55555555" style={styles.input} editable={false} />
+      <TextInput placeholder="Dirección" value="Universidad Don Bosco" style={styles.input} editable={false} />
 
-      {}
       <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.logoutText}>Cerrar Sesión</Text>
       </TouchableOpacity>
