@@ -7,13 +7,12 @@ const SPOTIFY_CLIENT_ID = '1417fc3988b0455e8bac7476bacdcd1b';
 const SPOTIFY_CLIENT_SECRET = 'b5fdcedefbfa4801b0031a5ad8d8f525';
 
 const HomeScreen = ({ navigation, route }) => {
-  const { name, email } = route.params || {}; // Recibir datos del usuario desde LoginScreen
+  const { name, email } = route.params || {};
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState(null);
   const [locationError, setLocationError] = useState(null);
 
-  // Obtener ubicación actual
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -26,7 +25,6 @@ const HomeScreen = ({ navigation, route }) => {
     })();
   }, []);
 
-  // Obtener canciones desde Spotify
   useEffect(() => {
     const fetchSpotifyMusic = async () => {
       try {
@@ -55,43 +53,6 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Mostrar ubicación actual */}
-      <View style={styles.locationContainer}>
-        <Ionicons name="location-outline" size={20} color="#fff" />
-        {location ? (
-          <Text style={styles.locationText}>
-            Lat: {location.latitude.toFixed(4)}, Lon: {location.longitude.toFixed(4)}
-          </Text>
-        ) : (
-          <Text style={styles.locationText}>
-            {locationError ? locationError : 'Obteniendo ubicación...'}
-          </Text>
-        )}
-      </View>
-
-      {/* Icono de perfil flotante */}
-      <TouchableOpacity
-        style={styles.profileIcon}
-        onPress={() => navigation.navigate('UserProfile', { name, email })} // Pasar datos al perfil
-      >
-        <Ionicons name="person-circle-outline" size={40} color="white" />
-      </TouchableOpacity>
-
-      {/* Botones */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Audio')}
-      >
-        <Text style={styles.buttonText}>Ir al reproductor de audio</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Favoritos')}
-      >
-        <Text style={styles.buttonText}>Ver favoritos</Text>
-      </TouchableOpacity>
-
       {/* Lista de canciones */}
       {loading ? (
         <Text style={styles.loadingText}>Cargando canciones...</Text>
@@ -111,6 +72,44 @@ const HomeScreen = ({ navigation, route }) => {
           ))}
         </ScrollView>
       )}
+
+      {/* Barra de navegación inferior */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate('Audio')}
+        >
+          <Ionicons name="musical-notes-outline" size={28} color="white" />
+          <Text style={styles.iconLabel}>Audio</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate('Favoritos')}
+        >
+          <Ionicons name="heart-outline" size={28} color="white" />
+          <Text style={styles.iconLabel}>Favoritos</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => navigation.navigate('UserProfile', { name, email })}
+        >
+          <Ionicons name="person-outline" size={28} color="white" />
+          <Text style={styles.iconLabel}>Perfil</Text>
+        </TouchableOpacity>
+
+        <View style={styles.iconButton}>
+          <Ionicons name="location-outline" size={28} color="white" />
+          <Text style={styles.iconLabel}>
+            {location
+              ? `Lat: ${location.latitude.toFixed(2)}`
+              : locationError
+              ? 'Error'
+              : 'Ubicación'}
+          </Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -121,47 +120,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
     paddingTop: 40,
     paddingHorizontal: 10,
+    paddingBottom: 70, // espacio para la barra inferior
   },
-  locationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 10,
-    justifyContent: 'center',
-  },
-  locationText: {
+  loadingText: {
     color: '#fff',
-    marginLeft: 8,
-    fontSize: 14,
-  },
-  profileIcon: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    backgroundColor: '#30691f',
-    padding: 10,
-    borderRadius: 30,
-    elevation: 5,
-    zIndex: 10,
-  },
-  button: {
-    backgroundColor: '#1DB954',
-    padding: 10,
-    borderRadius: 20,
-    alignSelf: 'center',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 100,
+    fontSize: 18,
   },
   songList: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingBottom: 20,
-    marginTop: 80,
   },
   songCard: {
     width: '48%',
@@ -184,11 +155,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
-  loadingText: {
-    color: '#fff',
-    textAlign: 'center',
-    marginTop: 100,
-    fontSize: 18,
+  bottomBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    backgroundColor: '#1b1c1b',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    elevation: 10,
+  },
+  iconButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconLabel: {
+    fontSize: 10,
+    color: 'white',
+    marginTop: 2,
   },
 });
 
