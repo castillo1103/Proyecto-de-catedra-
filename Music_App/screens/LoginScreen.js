@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
-  // ✅ Lista de usuarios válidos
-  const users = [
-    {
-      email: 'caleb.penate@gmail.com',
-      password: 'calebpenate2003',
-      name: 'Caleb Peñate'
-    },
-    {
-      email: 'camila.castillo@gmail.com',
-      password: 'camila2003',
-      name: 'Camila Castillo'
-    }
-  ];
-
-  const handleLogin = () => {
-    
+  const handleLogin = async () => {
+    // Buscar usuario en AsyncStorage
+    const usersData = await AsyncStorage.getItem('users');
+    const users = usersData ? JSON.parse(usersData) : [];
     const matchedUser = users.find(
       (user) => user.email === username && user.password === password
     );
@@ -29,7 +18,9 @@ const LoginScreen = ({ navigation }) => {
     if (matchedUser) {
       navigation.navigate('Inicio', {
         name: matchedUser.name,
-        email: matchedUser.email
+        email: matchedUser.email,
+        password: matchedUser.password,
+        phone: matchedUser.phone,
       });
     } else {
       setModalVisible(true);
@@ -40,7 +31,7 @@ const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>¡Bienvenido!</Text>
       <TextInput
-        placeholder="Usuario"
+        placeholder="Correo electrónico"
         style={styles.input}
         placeholderTextColor="#8e8e8e"
         value={username}
@@ -178,4 +169,4 @@ const styles = StyleSheet.create({
 export default LoginScreen;
 
 
-  
+
