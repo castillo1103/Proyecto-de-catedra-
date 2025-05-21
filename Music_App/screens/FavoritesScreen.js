@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
 
 const FavoritesScreen = ({ navigation }) => {
   const [favorites, setFavorites] = useState([]);
@@ -15,19 +16,43 @@ const FavoritesScreen = ({ navigation }) => {
     setFavorites(favs ? JSON.parse(favs) : []);
   };
 
+  const removeFromFavorites = async (songId) => {
+    const newFavorites = favorites.filter(item => item.id !== songId);
+    await AsyncStorage.setItem('favorites', JSON.stringify(newFavorites));
+    setFavorites(newFavorites);
+  };
+
+  const confirmDelete = (songId, songName) => {
+    Alert.alert(
+      "Eliminar de favoritos",
+      `¿Deseas eliminar "${songName}" de tus favoritos?`,
+      [
+        { text: "Cancelar", style: "cancel" },
+        { text: "Eliminar", style: "destructive", onPress: () => removeFromFavorites(songId) },
+      ]
+    );
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.songCard}
-      onPress={() => navigation.navigate('Detalles', { song: item })}
-    >
-      <Image source={{ uri: item.images[0]?.url }} style={styles.songImage} />
-      <View style={{ flex: 1 }}>
-        <Text style={styles.songTitle}>{item.name}</Text>
-        <Text style={styles.songArtist}>
-          {item.artists.map(artist => artist.name).join(', ')}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.songCard}>
+      <TouchableOpacity
+        style={{ flexDirection: 'row', flex: 1, alignItems: 'center' }}
+        onPress={() => navigation.navigate('Detalles', { song: item })}
+      >
+        <Image source={{ uri: item.images[0]?.url }} style={styles.songImage} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.songTitle}>{item.name}</Text>
+          <Text style={styles.songArtist}>
+            {item.artists.map(artist => artist.name).join(', ')}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+      {/* Botón de eliminar */}
+      <TouchableOpacity onPress={() => confirmDelete(item.id, item.name)}>
+        <Ionicons name="trash-outline" size={24} color="#FF4D4D" />
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -67,6 +92,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 12,
+    justifyContent: 'space-between',
   },
   songImage: {
     width: 60,
