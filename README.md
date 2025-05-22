@@ -1,3 +1,6 @@
+
+<h1>Este readme será actualizado</h1>
+
 # Proyecto-de-catedra-
 
 <h2>📌 Descripción General</h2>
