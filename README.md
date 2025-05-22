@@ -95,57 +95,57 @@ Daniel Ernesto Alvarado Roque      AR220441
 
 1. **Pantalla de inicio**
 
-!(/Music_App/img/inicio.jpg)
+![img](/Music_App/img/inicio.jpg)
 
 Aquí se puede observar el formulario de registro paraa un usuario.
 
 2. **Pantalla de registro**
 
-!(/Music_App/img/registro.jpg)
+![img](/Music_App/img/registro.jpg)
 
 Como somos nuevos en la aplicación hay que registrarse rellenando los campos, al completar el registro tenemos que iniciar sesión con el correo y la contraseña.
 
 3. **Recuperación de contraseña**
 
-!(/Music_App/img/recuperacion.jpg)
+![img](/Music_App/img/recuperacion.jpg)
 
 si hemos perdido nuestra contraseña podemos recuperarla con nuestro correo.
 
 
 4. **Pantalla principal**
 
-!(/Music_App/img/home.jpg)
+![img](/Music_App/img/home.jpg)
 
 Luego nos apareceran una lista de canciones al azar, si queremos mas detalles de una canción presionamos una.
 
 5. **Pantalla de detalles**
 
-!(/Music_App/img/detalles.jpg)
-!(/Music_App/img/spotify.jpg)
+![img](/Music_App/img/detalles.jpg)
+![img](/Music_App/img/spotify.jpg)
 
 En los detalles la informacion relacionada a la canción, podemos darle al corazón para agregar a favoritas y tambien al boton de escuchar que nos llevara a la aplicación o a la pagina de Spotify.
 
 6. **pantalla de canciones favoritas**
 
-!(/Music_App/img/favorito.jpg)
+![img](/Music_App/img/favorito.jpg)
 
 Aca estan las canciones agregadas como favoritas.
 
 7. **pantalla de grabación de audio**
 
-!(/Music_App/img/audio.jpg)
+![img](/Music_App/img/audio.jpg)
 
 Es un apartado para grabar y escuchar lo que se graba.
 
 8. **pantalla de perfil**
 
-!(/Music_App/img/perfil.jpg)
+![img](/Music_App/img/perfil.jpg)
 
 En esta pantalla aparecen nuestros datos ingresados en el principio. ademas podemos tomar una foto nuestro perfil.
 
 9. **Modulos agregados**
 
-!(/Music_App/img/ubicacion.jpg)
-!(/Music_App/img/foto.jpg)
+![img](/Music_App/img/ubicacion.jpg)
+![img](/Music_App/img/foto.jpg)
 
 Se agregaron estos 2 modulos, en los que al iniciarse por primera vez pide los permisos del dispositivo.
